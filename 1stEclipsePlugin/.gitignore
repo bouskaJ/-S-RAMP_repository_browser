@@ -1,11 +1,6 @@
-.settings
-.project
-.classpath
-target
-.metadata
-/RemoteSystemsTempFiles
-.errai
-*.versionsBackup
-*~
-.checkstyle
-activemq-data
+**/.settings
+**/.project
+**/.classpath
+**/target
+**/.metadata
+
