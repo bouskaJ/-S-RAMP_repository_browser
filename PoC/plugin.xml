@@ -5,15 +5,15 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            name="S-RAMP repository browser"
-            id="cz.muni.fi.srampRepositoryBrowser">
+            name="S-RAMP"
+            id="sramp">
       </category>
       <view
-            name="S-RAMP repository browser"
+            name="Repository Browser"
             icon="icons/sample.gif"
-            category="cz.muni.fi.srampRepositoryBrowser"
-            class="cz.muni.fi.sramprepositorybrowser.views.SrampRepositoryBrowser"
-            id="cz.muni.fi.sramprepositorybrowser.views.SrampRepositoryBrowser">
+            category="sramp"
+            class="cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser"
+            id="cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser">
       </view>
    </extension>
    <extension
@@ -24,7 +24,7 @@
                ratio="0.5"
                relative="org.eclipse.ui.views.ProblemView"
                relationship="right"
-               id="cz.muni.fi.sramprepositorybrowser.views.SrampRepositoryBrowser">
+               id="cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser">
          </view>
       </perspectiveExtension>
    </extension>
