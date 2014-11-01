@@ -5,7 +5,7 @@
 	<artifactId>repositoryBrowser</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
-		
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -20,11 +20,17 @@
 	<dependencies>
 
 		<dependency>
-	<groupId>org.eclipse.swt.gtk.linux</groupId>
-	<artifactId>x86_64</artifactId>
-	<version>3.3.0-v3346</version>
-</dependency>
-		
+			<groupId>org.eclipse.swt.gtk.linux</groupId>
+			<artifactId>x86_64</artifactId>
+			<version>3.3.0-v3346</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>jface</artifactId>
+			<version>3.3.0-I20070606-0010</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.overlord.sramp</groupId>
@@ -66,7 +72,7 @@
 			<artifactId>s-ramp-javadoc</artifactId>
 			<version>0.5.0.Final</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>ui</artifactId>
@@ -75,6 +81,6 @@
 
 
 
-		
+
 	</dependencies>
 </project>
