@@ -3,7 +3,25 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cz.muni.fi.sramp</groupId>
 	<artifactId>repositoryBrowser</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0.alpha1</version>
+	<packaging>eclipse-plugin</packaging>
+
+	<properties>
+		<tycho.version>0.19.0</tycho.version>
+		<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>kepler</id>
+			<url>${kepler-repo.url}</url>
+			<layout>p2</layout>
+		</repository>
+
+	</repositories>
+
+
+
 	<build>
 
 		<plugins>
@@ -15,22 +33,52 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<configuration>
+					<pomDependencies>consider</pomDependencies>
+					
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
 		</plugins>
+
 	</build>
 	<dependencies>
-
-		<dependency>
-			<groupId>org.eclipse.swt.gtk.linux</groupId>
-			<artifactId>x86_64</artifactId>
-			<version>3.3.0-v3346</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>jface</artifactId>
-			<version>3.3.0-I20070606-0010</version>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.overlord.sramp</groupId>
@@ -72,15 +120,6 @@
 			<artifactId>s-ramp-javadoc</artifactId>
 			<version>0.5.0.Final</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>ui</artifactId>
-			<version>3.3.0-I20070614-0800</version>
-		</dependency>
-
-
-
 
 	</dependencies>
 </project>

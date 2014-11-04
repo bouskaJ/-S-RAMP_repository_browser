@@ -41,6 +41,7 @@ public class ViewMain extends Composite {
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 		scrolledComposite.setMinHeight(100);
+		scrolledComposite.setMinWidth(600);
 		
 		Table table = new Table(scrolledComposite,SWT.NONE);
 		scrolledComposite.setContent(table);
