@@ -9,11 +9,11 @@
             id="sramp">
       </category>
       <view
-            name="Repository Browser"
-            icon="icons/sample.gif"
             category="sramp"
             class="cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser"
-            id="cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser">
+            icon="icons/sample.gif"
+            id="cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser"
+            name="Repository Browser">
       </view>
    </extension>
    <extension
@@ -34,5 +34,51 @@
             file="contexts.xml">
       </contexts>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="cz.muni.fi.srampRepositoryBrowser.views.ConnectToServerComand"
+            id="srampRepositoryBrowser.ConnectToServer"
+            name="ConnectToServer">
+      </command>
+      <command
+            defaultHandler="cz.muni.fi.srampRepositoryBrowser.views.ImportArtifactComand"
+            id="srampRepositoryBrowser.ImportToSramp"
+            name="ImportToSramp">
+      </command>
+   </extension>
+   
+      
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser">
+         <toolbar
+               id="srampRepositoryBrowser.toolbar4">
+            <command
+                  commandId="srampRepositoryBrowser.ConnectToServer"
+                  style="push">
+            </command>
+         </toolbar>
+         <command
+               commandId="srampRepositoryBrowser.ConnectToServer"
+               label="Connect To Server"
+               style="push">
+         
+		
+           </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+         <command
+               commandId="srampRepositoryBrowser.ImportToSramp"
+               label="Import to S-RAMP repository"
+               style="push">
+            
+         </command>
+      </menuContribution>
+   </extension>
+   
 </plugin>

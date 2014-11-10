@@ -9,7 +9,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
 
-
+/**
+ * property class 
+ * @author honza
+ *
+ */
 class Property extends Composite {
 	private Text nameT;
 	private Text valueT;

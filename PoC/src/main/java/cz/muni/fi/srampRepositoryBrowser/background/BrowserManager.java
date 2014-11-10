@@ -53,6 +53,6 @@ public interface BrowserManager {
 	 */
 	void importToWorkspace(String uuid);
 
-	
+	public boolean isConnected();
 
 }

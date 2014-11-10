@@ -9,7 +9,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
-
+/**
+ * import to repository dialog
+ * @author honza
+ *
+ */
 public class ImprotToRepositoryDialog extends Dialog {
 
 	protected Object result;

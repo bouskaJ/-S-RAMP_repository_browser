@@ -2,29 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cz.muni.fi.sramp</groupId>
-	<artifactId>repositoryBrowser</artifactId>
-	<version>1.0.0.alpha1</version>
+	<artifactId>srampRepositoryBrowser</artifactId>
+	<version>1.0.0</version>
 	<packaging>eclipse-plugin</packaging>
 
-	<properties>
-		<tycho.version>0.19.0</tycho.version>
-		<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
-	</properties>
-
-	<repositories>
-		<repository>
-			<id>kepler</id>
-			<url>${kepler-repo.url}</url>
-			<layout>p2</layout>
-		</repository>
-
-	</repositories>
-
-
-
 	<build>
-
 		<plugins>
+
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
@@ -33,65 +17,152 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho.version}</version>
+				<version>0.20.0</version>
 				<extensions>true</extensions>
 			</plugin>
 
 			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.7</version><!--$NO-MVN-MAN-VER$ -->
+				<executions>
+					<execution>
+						<id>get-libs</id>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+				</executions>
 				<configuration>
-					<pomDependencies>consider</pomDependencies>
-					
-					<environments>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86_64</arch>
-						</environment>
-					</environments>
+					<skip>false</skip>
+					<transitive>true</transitive>
+					<outputDirectory>${basedir}/lib/</outputDirectory>
+					<!-- baseVersion is to avoid SNAPSHOT dependencies being copied with 
+						ever daily changing timestamp -->
+					<useBaseVersion>true</useBaseVersion>
+					<artifactItems>
+
+						<artifactItem>
+							<groupId>javax.inject</groupId>
+							<artifactId>javax.inject</artifactId>
+							<version>1</version>
+						</artifactItem>
+
+
+
+						<artifactItem>
+							<groupId>org.overlord.sramp</groupId>
+							<artifactId>s-ramp-dev-server</artifactId>
+							<version>0.5.0.Final</version>
+						</artifactItem>
+
+						<artifactItem>
+							<groupId>org.overlord.sramp</groupId>
+							<artifactId>s-ramp-api</artifactId>
+							<version>0.5.0.Final</version>
+						</artifactItem>
+
+
+						<artifactItem>
+							<artifactId>s-ramp-client</artifactId>
+							<groupId>org.overlord.sramp</groupId>
+							<version>0.5.0.Final</version>
+						</artifactItem>
+
+						<artifactItem>
+							<artifactId>s-ramp-atom</artifactId>
+							<groupId>org.overlord.sramp</groupId>
+							<version>0.5.0.Final</version>
+						</artifactItem>
+
+
+						<artifactItem>
+							<groupId>org.eclipse.ui</groupId>
+							<artifactId>workbench</artifactId>
+							<version>3.3.0-I20070608-1100</version>
+						</artifactItem>
+
+
+						<artifactItem>
+							<groupId>org.eclipse.swt.gtk.linux</groupId>
+							<artifactId>x86_64</artifactId>
+							<version>3.3.0-v3346</version>
+						</artifactItem>
+
+
+
+					</artifactItems>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- make sure lib dir is removed after clean to avoid "dirty" build -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${basedir}/lib</directory>
+						</fileset>
+					</filesets>
 				</configuration>
 			</plugin>
 		</plugins>
-
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-dependency-plugin
+										</artifactId>
+										<versionRange>
+											[2.7,)
+										</versionRange>
+										<goals>
+											<goal>copy</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute runOnConfiguration="true"></execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
+
+
+
 	<dependencies>
+
+
 
 		<dependency>
 			<groupId>org.overlord.sramp</groupId>
-			<artifactId>s-ramp-dev-server</artifactId>
+			<artifactId>s-ramp-api</artifactId>
 			<version>0.5.0.Final</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
-		</dependency>
 
 
 		<dependency>
@@ -106,20 +177,38 @@
 			<version>0.5.0.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.overlord.sramp</groupId>
+			<artifactId>s-ramp-dev-server</artifactId>
+			<version>0.5.0.Final</version>
+		</dependency>
+
+
+
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.10</version>
+			<version>4.11</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.ui</groupId>
+			<artifactId>workbench</artifactId>
+			<version>3.3.0-I20070608-1100</version>
 		</dependency>
 
 
 		<dependency>
-			<groupId>org.overlord.sramp</groupId>
-			<artifactId>s-ramp-javadoc</artifactId>
-			<version>0.5.0.Final</version>
+			<groupId>org.eclipse.swt.gtk.linux</groupId>
+			<artifactId>x86_64</artifactId>
+			<version>3.3.0-v3346</version>
 		</dependency>
+
+
+
+
 
 	</dependencies>
 </project>

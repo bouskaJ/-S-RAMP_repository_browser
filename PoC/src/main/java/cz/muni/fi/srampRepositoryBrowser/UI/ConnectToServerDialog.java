@@ -1,19 +1,41 @@
 package cz.muni.fi.srampRepositoryBrowser.UI;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.SWT;
-
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import cz.muni.fi.srampRepositoryBrowser.background.BrowserManager;
+import cz.muni.fi.srampRepositoryBrowser.background.ServiceFailureException;
+import cz.muni.fi.srampRepositoryBrowser.views.ConnectToServerComand;
+import cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser;
+
+
+/**
+ * Connect to server dialog class
+ * @author honza
+ *
+ */
 public class ConnectToServerDialog extends Dialog {
-
+	static final Dimension SCREEN_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
+	final static Logger log = LoggerFactory.getLogger(ConnectToServerComand.class);
 	protected Object result;
 	protected Shell shlConnectToServer;
 	private Text serverT;
@@ -21,15 +43,17 @@ public class ConnectToServerDialog extends Dialog {
 	private Label passwordLabel;
 	private Text passwordT;
 	private Button cancelButton;
-
+	private RepositoryBrowser b;
+	
 	/**
 	 * Create the dialog.
 	 * @param parent
 	 * @param style
 	 */
-	public ConnectToServerDialog(Shell parent, int style) {
+	public ConnectToServerDialog(Shell parent, int style,RepositoryBrowser b) {
 		super(parent, style);
-		setText("SWT Dialog");
+		this.b = b;
+		
 	}
 
 	/**
@@ -55,7 +79,11 @@ public class ConnectToServerDialog extends Dialog {
 	private void createContents() {
 		shlConnectToServer = new Shell(getParent(), getStyle());
 		shlConnectToServer.setText("Connect to server");
-		shlConnectToServer.setSize(450, 176);
+		int width = 450;
+		int height = 176;
+		int dialogX = SCREEN_DIMENSION.width / 2 - width / 2; 
+		int dialogY = SCREEN_DIMENSION.height / 2 - height / 2;
+		shlConnectToServer.setBounds(dialogX, dialogY, width, height);
 		shlConnectToServer.setLayout(new GridLayout(2, false));
 		
 		Label usernameLabel = new Label(shlConnectToServer, SWT.NONE);
@@ -64,10 +92,10 @@ public class ConnectToServerDialog extends Dialog {
 		passwordLabel = new Label(shlConnectToServer, SWT.NONE);
 		passwordLabel.setText("Password:");
 		
-		usernameT = new Text(shlConnectToServer, SWT.BORDER);
+		usernameT = new Text(shlConnectToServer, SWT.BORDER );
 		usernameT.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		passwordT = new Text(shlConnectToServer, SWT.BORDER);
+		passwordT = new Text(shlConnectToServer, SWT.BORDER |  SWT.PASSWORD);
 		passwordT.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label serverLabel = new Label(shlConnectToServer, SWT.NONE);
@@ -82,12 +110,97 @@ public class ConnectToServerDialog extends Dialog {
 		gd_OKButton.widthHint = 60;
 		OKButton.setLayoutData(gd_OKButton);
 		OKButton.setText("OK");
+		OKButton.addSelectionListener(new SelectionAdapter() {
+	         public void widgetSelected(SelectionEvent event) {
+	        	
+	        	 final String user = usernameT.getText();
+	        	 final String password = passwordT.getText();
+	        	 final String server = serverT.getText();
+	     		
+	 		    Job connecting = new Job("connecting") {
+	 		    	
+	 		      @Override
+	 		      protected IStatus run(IProgressMonitor monitor) {
+	 		  		
+	 		    	  try{
+	 		    	getManager().setConnection(server,user,password);
+	 		    	  	  }catch(ServiceFailureException e)
+	 		    	  {
+	 		    		 Display.getDefault().asyncExec(new Runnable() {
+	 		   		      public void run() {
+	 		   		    	MessageDialog.openError(shlConnectToServer, "Connection failed!", "You have wrong URL, username or password.");	 		   		    	  
+	 		   		    	
+	 		   		      }
+	 		   		    });
+	 		    		
+	 		    	  }
+	 		    	
+	 		        return Status.OK_STATUS;
+	 		      }
+
+				
+	 		    };
+	 		   
+	 		    
+	 		    connecting.schedule();
+	 		    
+	 		    
+	 		  /* Job loading = new Job("loading data") {
+	 		    	
+		 		      @Override
+		 		      protected IStatus run(IProgressMonitor monitor) {
+		 		  		
+		 		    	  try{
+		 		    		  b.getMainView().setContent(getManager().listAllArtifacts());
+		 		    	  	  }catch(ServiceFailureException e)
+		 		    	  {
+		 		    		 Display.getDefault().asyncExec(new Runnable() {
+		 		   		      public void run() {
+		 		   		    	MessageDialog.openWarning(shlConnectToServer, "Loading failed!", "The data was not loaded successfully.");	 		   		    	  
+		 		   		    	
+		 		   		      }
+		 		   		    });
+		 		    	  }
+		 		    	
+		 		        return Status.OK_STATUS;
+		 		      }
+
+					
+		 		    };
+		 		   
+		 		    
+		 		    loading.schedule();
+		 		    */
+		 		    
+	 		   // b.getMainView().updateTable();
+	 		    shlConnectToServer.close();
+	        	 
+	         }
+	        
+	         });
 		
 		cancelButton = new Button(shlConnectToServer, SWT.NONE);
 		GridData gd_cancelButton = new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1);
 		gd_cancelButton.widthHint = 60;
 		cancelButton.setLayoutData(gd_cancelButton);
 		cancelButton.setText("Cancel");
+		cancelButton.addSelectionListener(new SelectionAdapter() {
+	         public void widgetSelected(SelectionEvent event) {
+	        	 shlConnectToServer.close();
+	         }
+	        
+	         });
 
+		
+		
 	}
+
+	private final BrowserManager getManager()
+	{
+		return b.getManager();
+	}
+	
+	
+
+	
 }

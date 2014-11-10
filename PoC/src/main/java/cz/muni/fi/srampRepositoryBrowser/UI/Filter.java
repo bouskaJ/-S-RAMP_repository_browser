@@ -12,6 +12,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.DateTime;
 
 
+/**
+ * 
+ * @author honza
+ * Class representing browser filter
+ *
+ */
 public class Filter extends Composite {
 	private Text typeT;
 	private Text createdByT;
