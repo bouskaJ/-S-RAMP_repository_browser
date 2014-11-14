@@ -45,6 +45,7 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
 				<configuration>
 					<environments>
 						<environment>
@@ -190,7 +191,7 @@
 											[2.7,)
 										</versionRange>
 										<goals>
-											<goal>copy</goal>
+											<goal>copy-dependencies</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
