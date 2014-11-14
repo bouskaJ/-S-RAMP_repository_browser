@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 /**
  * import to repository dialog
- * @author honza
+ * @author Jan Bouska
  *
  */
 public class ImprotToRepositoryDialog extends Dialog {

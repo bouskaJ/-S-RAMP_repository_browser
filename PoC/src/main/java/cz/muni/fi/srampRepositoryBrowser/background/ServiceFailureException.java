@@ -1,6 +1,10 @@
 package cz.muni.fi.srampRepositoryBrowser.background;
 
-
+/**
+ * service failture exception
+ * @author Jan Bouska
+ *
+ */
 public class ServiceFailureException extends RuntimeException {
 
 

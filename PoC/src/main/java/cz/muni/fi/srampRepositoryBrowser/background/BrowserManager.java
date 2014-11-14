@@ -1,13 +1,20 @@
 package cz.muni.fi.srampRepositoryBrowser.background;
 
 import java.io.File;
+
+import org.overlord.sramp.client.SrampClientQuery;
 import org.overlord.sramp.client.query.QueryResultSet;
 import org.overlord.sramp.common.ArtifactType;
 
+/**
+ * Browser manager interface.
+ * @author Jan Bouska
+ *
+ */
 public interface BrowserManager {
 	
 	/**
-	 * Set connection to endpoint
+	 * Set connection to endpoint.
 	 * 
 	 * @param endpoint
 	 * @param username
@@ -17,11 +24,18 @@ public interface BrowserManager {
 	void setConnection(final String endpoint, final String username, final String password) throws ServiceFailureException ;
 	
 	/**
-	 * List Artifact summary for all artifact from repository
-	 * 
-	 * @return ArtifactSummary list
+	 * Build query.
+	 * @param query
+	 * @return SrampClientQuery
 	 */
-	QueryResultSet listAllArtifacts() throws ServiceFailureException ;
+	SrampClientQuery buildQuery(String query);
+	
+	/**
+	 * Build query for all artifacts
+	 * 
+	 * @return SrampClientQuery for all artifacts
+	 */
+	SrampClientQuery listAllArtifacts();
 	
 	/**
 	 * Create new Artifact in s-ramp repository.
@@ -44,15 +58,20 @@ public interface BrowserManager {
 	 * Execute query
 	 * 
 	 * @param query 
-	 * @return ArtifactSummary list
+	 * @return QueryResultSet result of query
 	 */
-	QueryResultSet ExecuteQuery(String query);
+	QueryResultSet ExecuteQuery(SrampClientQuery query) throws ServiceFailureException;
 	
 	/**
 	 * import artifact to workspace
 	 */
 	void importToWorkspace(String uuid);
 
+	/**
+	 * determines whether the manager is connected
+	 * 
+	 * @return if manager is connected return true
+	 */
 	public boolean isConnected();
 
 }

@@ -1,24 +1,25 @@
 package cz.muni.fi.srampRepositoryBrowser.views;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import cz.muni.fi.srampRepositoryBrowser.UI.ConnectToServerDialog;
 
 /**
  * 
- * @author honza
+ * @author Jan Bouska
  * Default handler for ConnectToServerComand
  *
  */
 public class ConnectToServerComand extends AbstractHandler{
 
-	final static Logger log = LoggerFactory.getLogger(ConnectToServerComand.class);
+	public static final Logger log = Logger.getLogger(ConnectToServerComand.class.getName());
 	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -26,12 +27,12 @@ public class ConnectToServerComand extends AbstractHandler{
 		if(HandlerUtil.getActivePart(event) instanceof RepositoryBrowser)
 		{
 			RepositoryBrowser b = (RepositoryBrowser) HandlerUtil.getActivePart(event);
-			ConnectToServerDialog d =  new ConnectToServerDialog(HandlerUtil.getActiveShell(event),SWT.NONE,b);
+			ConnectToServerDialog d =  new ConnectToServerDialog(HandlerUtil.getActiveShell(event),SWT.TITLE | SWT.APPLICATION_MODAL,b.getMainView());
 			d.open();			
+		}else{
+		
+		log.log(Level.SEVERE,"Connect to server comand was not called from RepositoryBrowser class.");
 		}
-		
-		log.error("Connect to server comand is called wrong");
-		
 		return null;
 	}
 

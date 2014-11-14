@@ -6,6 +6,21 @@
 	<version>1.0.0</version>
 	<packaging>eclipse-plugin</packaging>
 
+<properties>
+    <tycho.version>0.21.0</tycho.version>
+	<sramp.version>0.5.0.Final</sramp.version>
+    <kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>kepler</id>
+      <url>${kepler-repo.url}</url>
+      <layout>p2</layout>
+    </repository>
+
+  </repositories>
+
 	<build>
 		<plugins>
 
@@ -21,9 +36,48 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
-				<version>0.20.0</version>
+				<version>${tycho.version}</version>
 				<extensions>true</extensions>
 			</plugin>
+
+
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<configuration>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+
+
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -58,26 +112,26 @@
 						<artifactItem>
 							<groupId>org.overlord.sramp</groupId>
 							<artifactId>s-ramp-dev-server</artifactId>
-							<version>0.5.0.Final</version>
+							<version>${sramp.version}</version>
 						</artifactItem>
 
 						<artifactItem>
 							<groupId>org.overlord.sramp</groupId>
 							<artifactId>s-ramp-api</artifactId>
-							<version>0.5.0.Final</version>
+							<version>${sramp.version}</version>
 						</artifactItem>
 
 
 						<artifactItem>
 							<artifactId>s-ramp-client</artifactId>
 							<groupId>org.overlord.sramp</groupId>
-							<version>0.5.0.Final</version>
+							<version>${sramp.version}</version>
 						</artifactItem>
 
 						<artifactItem>
 							<artifactId>s-ramp-atom</artifactId>
 							<groupId>org.overlord.sramp</groupId>
-							<version>0.5.0.Final</version>
+							<version>${sramp.version}</version>
 						</artifactItem>
 
 
@@ -160,7 +214,7 @@
 		<dependency>
 			<groupId>org.overlord.sramp</groupId>
 			<artifactId>s-ramp-api</artifactId>
-			<version>0.5.0.Final</version>
+			<version>${sramp.version}</version>
 		</dependency>
 
 
@@ -168,19 +222,19 @@
 		<dependency>
 			<artifactId>s-ramp-client</artifactId>
 			<groupId>org.overlord.sramp</groupId>
-			<version>0.5.0.Final</version>
+			<version>${sramp.version}</version>
 		</dependency>
 
 		<dependency>
 			<artifactId>s-ramp-atom</artifactId>
 			<groupId>org.overlord.sramp</groupId>
-			<version>0.5.0.Final</version>
+			<version>${sramp.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.overlord.sramp</groupId>
 			<artifactId>s-ramp-dev-server</artifactId>
-			<version>0.5.0.Final</version>
+			<version>${sramp.version}</version>
 		</dependency>
 
 

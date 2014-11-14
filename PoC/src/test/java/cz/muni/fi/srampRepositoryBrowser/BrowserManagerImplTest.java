@@ -1,6 +1,6 @@
 package cz.muni.fi.srampRepositoryBrowser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import org.overlord.sramp.client.SrampClientQuery;
 import org.overlord.sramp.client.query.ArtifactSummary;
 import org.overlord.sramp.client.query.QueryResultSet;
 import org.overlord.sramp.common.ArtifactType;
@@ -41,7 +42,7 @@ public class BrowserManagerImplTest {
 	
 	@After
     public void tearDown() {
-QueryResultSet qs = manager.listAllArtifacts();
+QueryResultSet qs = manager.ExecuteQuery(manager.listAllArtifacts());
 		
 		
 		for(ArtifactSummary as : qs)
@@ -57,8 +58,11 @@ QueryResultSet qs = manager.listAllArtifacts();
 			
 		
 		manager.uploadArtifact(f,null,null);
-		String query = "/s-ramp[@name ='"+f.getName()+"']";
-		QueryResultSet qs = manager.ExecuteQuery(query);
+		
+		SrampClientQuery qr = manager.buildQuery("/s-ramp[@name =?]");
+		qr.parameter(f.getName());
+		QueryResultSet qs = manager.ExecuteQuery(qr);
+		
 		assertEquals(1,qs.getTotalResults());
 		
 		ArtifactSummary as = qs.get(0);
@@ -74,7 +78,9 @@ QueryResultSet qs = manager.listAllArtifacts();
 		
 		manager.uploadArtifact(f,"name",type);
 		
-		QueryResultSet qs = manager.ExecuteQuery("/s-ramp[@name ='name']");
+		SrampClientQuery qr = manager.buildQuery("/s-ramp[@name =?]");
+		qr.parameter("name");
+		QueryResultSet qs = manager.ExecuteQuery(qr);
 		assertEquals(1,qs.getTotalResults());
 		
 		ArtifactSummary as = qs.get(0);
@@ -94,7 +100,7 @@ QueryResultSet qs = manager.listAllArtifacts();
 	@Test 
 	public void listAllArtifactBasicTest() throws IOException {
 		
-		QueryResultSet qs = manager.listAllArtifacts();
+		QueryResultSet qs = manager.ExecuteQuery(manager.listAllArtifacts());
 		
 		assertEquals(0,qs.getTotalResults());
 		
@@ -105,7 +111,7 @@ QueryResultSet qs = manager.listAllArtifacts();
 		manager.uploadArtifact(f,"file","File");
 		manager.uploadArtifact(f,null,"File");
 		
-		qs = manager.listAllArtifacts();
+		qs = manager.ExecuteQuery(manager.listAllArtifacts());
 		
 		assertEquals(4,qs.getTotalResults());
 		
@@ -122,12 +128,12 @@ QueryResultSet qs = manager.listAllArtifacts();
 		manager.uploadArtifact(f,null,null);
 		
 		
-		QueryResultSet qs = manager.listAllArtifacts();
+		QueryResultSet qs = manager.ExecuteQuery(manager.listAllArtifacts());
 		
 		ArtifactSummary as = qs.get(0);
 		
 		manager.deleteArtifact(as.getUuid(), as.getType());
-		qs = manager.listAllArtifacts();
+		qs = manager.ExecuteQuery(manager.listAllArtifacts());
 		
 		assertEquals(0,qs.getTotalResults());
 		
@@ -135,11 +141,11 @@ QueryResultSet qs = manager.listAllArtifacts();
 		manager.uploadArtifact(f,"file","File");
 		
 		String query = "/s-ramp/wsdl/File[@name = 'file']";
-		qs = manager.ExecuteQuery(query);
+		qs = manager.ExecuteQuery(manager.buildQuery(query));
 		as = qs.get(0);
 		manager.deleteArtifact(as.getUuid(), as.getType());
 		
-		qs = manager.listAllArtifacts();
+		qs = manager.ExecuteQuery(manager.listAllArtifacts());
 		as = qs.get(0);
 		assertcheckArtifact("file",ArtifactType.valueOf("Document"), as);
 		

@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * property class 
- * @author honza
+ * @author Jan Bouska
  *
  */
 class Property extends Composite {

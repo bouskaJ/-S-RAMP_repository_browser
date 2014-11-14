@@ -4,26 +4,28 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-
-
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.overlord.sramp.atom.err.SrampAtomException;
 import org.overlord.sramp.client.SrampAtomApiClient;
 import org.overlord.sramp.client.SrampClientException;
+import org.overlord.sramp.client.SrampClientQuery;
 import org.overlord.sramp.client.query.QueryResultSet;
 import org.overlord.sramp.common.ArtifactType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import cz.muni.fi.srampRepositoryBrowser.views.ConnectToServerComand;
+/**
+ * Browser manager interface impl.
+ * @author Jan Bouska
+ *
+ */
 
 public class BrowserManagerImpl implements BrowserManager{
 
 	private SrampAtomApiClient client;
 	private boolean isConected = false;
 	
-	final static Logger log = LoggerFactory.getLogger(ConnectToServerComand.class);
+	public static final Logger log = Logger.getLogger(BrowserManagerImpl.class.getName());
 	
 	
 	
@@ -33,11 +35,11 @@ public class BrowserManagerImpl implements BrowserManager{
 			client = new SrampAtomApiClient(endpoint,username,password,true);
 			isConected = true;
 		}catch (SrampClientException  e) {
-			log.warn("Problem with connecting",e);
+			log.log(Level.WARNING,"Problem with connecting",e);
 			throw new ServiceFailureException("Problem with connecting",e);
 		}
 		catch ( SrampAtomException e) {
-			log.warn("Problem with connecting",e);
+			log.log(Level.WARNING,"Problem with connecting",e);
 			throw new ServiceFailureException("Problem with connecting",e);
 		}
 	}
@@ -47,14 +49,23 @@ public class BrowserManagerImpl implements BrowserManager{
 		return isConected;
 	}
 
-	public QueryResultSet listAllArtifacts() throws ServiceFailureException {
-		return ExecuteQuery("/s-ramp");
+	
+	public SrampClientQuery buildQuery(String query)
+	{
+		return client.buildQuery(query);
+	}
+	
+	public SrampClientQuery listAllArtifacts() 
+	{
+		
+		return	buildQuery("/s-ramp");
+		
 	}
 
 
 	public void uploadArtifact(File file, String name, String type) throws ServiceFailureException {
 		if(file == null)
-		{	log.warn("Uploading Artifact without content.");
+		{	log.log(Level.WARNING,"Uploading Artifact without content.");
 			throw new ServiceFailureException("Uploading Artifact without content.");
 		}
 		
@@ -74,15 +85,15 @@ public class BrowserManagerImpl implements BrowserManager{
 			
 			client.uploadArtifact(ArtifactType.valueOf(type),is,name);
 		} catch (FileNotFoundException e) {
-			log.warn("Problem with uploading artifact (file = " + file + ").",e);
+			log.log(Level.WARNING,"Problem with uploading artifact (file = " + file + ").",e);
 			throw new ServiceFailureException("Problem with uploading artifact (file = " + file + ").",e);
 		}	
 		catch (SrampClientException  e) {
-			log.warn("Problem with uploading artifact (file = " + file + ").",e);
+			log.log(Level.WARNING,"Problem with uploading artifact (file = " + file + ").",e);
 			throw new ServiceFailureException("Problem with uploading artifact (file = " + file + ").",e);
 		}	
 		catch (SrampAtomException e) {
-			log.warn("Problem with uploading artifact (file = " + file + ").",e);
+			log.log(Level.WARNING,"Problem with uploading artifact (file = " + file + ").",e);
 			throw new ServiceFailureException("Problem with uploading artifact (file = " + file + ").",e);
 		}	
 		
@@ -95,12 +106,12 @@ public class BrowserManagerImpl implements BrowserManager{
 		try {
 			client.deleteArtifact(uuid, type);
 		} catch (SrampAtomException e) {
-			log.warn("Problem with deleting artifact (uuid = " + uuid + ").",e);
+			log.log(Level.WARNING,"Problem with deleting artifact (uuid = " + uuid + ").",e);
 			throw new ServiceFailureException("Problem with deleting artifact (uuid = " + uuid + ").",e);
 			
 		}
 		catch (SrampClientException e) {
-			log.warn("Problem with deleting artifact (uuid = " + uuid + ").",e);
+			log.log(Level.WARNING,"Problem with deleting artifact (uuid = " + uuid + ").",e);
 			throw new ServiceFailureException("Problem with deleting artifact (uuid = " + uuid + ").",e);
 			
 		}
@@ -110,15 +121,16 @@ public class BrowserManagerImpl implements BrowserManager{
 		
 	}
 
-	public QueryResultSet ExecuteQuery(String query) throws ServiceFailureException {
+	public QueryResultSet ExecuteQuery(SrampClientQuery query)
+			throws ServiceFailureException {
 		try {
-			return client.query(query);
+			return query.query();
 		} catch ( SrampAtomException e) {
-			log.warn("Problem with execute query (" + query + ").",e);
+			log.log(Level.WARNING,"Problem with execute query (" + query + ").",e);
 			throw new ServiceFailureException("Problem with execute query (" + query + ").",e);
 		}
 		catch (SrampClientException  e) {
-			log.warn("Problem with execute query (" + query + ").",e);
+			log.log(Level.WARNING,"Problem with execute query (" + query + ").",e);
 			throw new ServiceFailureException("Problem with execute query (" + query + ").",e);
 		}
 		

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 
- * @author honza
+ * @author Jan Bouska
  * Default handler for ImportArtifactComand
  *
  */

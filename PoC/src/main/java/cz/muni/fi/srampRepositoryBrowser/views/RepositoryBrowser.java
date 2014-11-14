@@ -1,19 +1,17 @@
 package cz.muni.fi.srampRepositoryBrowser.views;
 
 
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.part.*;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.part.ViewPart;
 
 import cz.muni.fi.srampRepositoryBrowser.UI.ViewMain;
-import cz.muni.fi.srampRepositoryBrowser.background.BrowserManager;
-import cz.muni.fi.srampRepositoryBrowser.background.BrowserManagerImpl;
 
 
 /**
  * 
- * @author honza
+ * @author Jan Bouska
  *	main class representing Repository Browser View
  *
  */
@@ -24,7 +22,6 @@ public class RepositoryBrowser extends ViewPart {
 	 */
 	public static final String ID = "cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser";
 	private ScrolledComposite ui;
-	private BrowserManager manager;
 	private ViewMain mainView;
 	
 	
@@ -33,24 +30,16 @@ public class RepositoryBrowser extends ViewPart {
 		
 		ui = new ScrolledComposite(parent,SWT.H_SCROLL | SWT.V_SCROLL);
 		ui.setMinHeight(350);
-		ui.setMinWidth(720);
+		ui.setMinWidth(970);
 		ui.setExpandHorizontal(true);
 		ui.setExpandVertical(true);
-		mainView= new ViewMain(ui,SWT.NONE,manager);
+		mainView= new ViewMain(ui,SWT.NONE);
 		ui.setContent(mainView);
 		
-		manager = new BrowserManagerImpl();
+		
 	}
 
-	/**
-	 * 
-	 * @return browser manager
-	 */
-	public BrowserManager getManager()
-	{
-		return manager;
-	}
-	
+
 	/**
 	 * 
 	 * @return main class with UI
