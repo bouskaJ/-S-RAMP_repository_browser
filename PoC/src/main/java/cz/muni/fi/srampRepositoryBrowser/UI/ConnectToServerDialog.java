@@ -124,6 +124,7 @@ public class ConnectToServerDialog extends Dialog {
 		serverT = new Text(shlConnectToServer, SWT.BORDER);
 		serverT.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				2, 1));
+		serverT.setText("http://localhost:8080/s-ramp-server");
 
 		Button OKButton = new Button(shlConnectToServer, SWT.NONE);
 		GridData gd_OKButton = new GridData(SWT.CENTER, SWT.CENTER, false,

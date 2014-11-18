@@ -3,6 +3,7 @@ package cz.muni.fi.srampRepositoryBrowser.background;
 import java.io.File;
 
 import org.overlord.sramp.client.SrampClientQuery;
+import org.overlord.sramp.client.query.ArtifactSummary;
 import org.overlord.sramp.client.query.QueryResultSet;
 import org.overlord.sramp.common.ArtifactType;
 
@@ -65,7 +66,7 @@ public interface BrowserManager {
 	/**
 	 * import artifact to workspace
 	 */
-	void importToWorkspace(String uuid);
+	void importToWorkspace(ArtifactSummary as) throws ServiceFailureException;
 
 	/**
 	 * determines whether the manager is connected
