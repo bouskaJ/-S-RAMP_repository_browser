@@ -4,6 +4,4 @@
 .project
 target
 .settings
-META-INF
-build.properties
 bin
