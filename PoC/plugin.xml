@@ -71,12 +71,43 @@
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
          <command
                commandId="srampRepositoryBrowser.ImportToSramp"
                label="Import to S-RAMP repository"
                style="push">
-            
+             <visibleWhen>
+				           <with variable="activeMenuSelection">
+				            <iterate
+				                 ifEmpty="false">
+				             <adapt type="org.eclipse.core.resources.IResource">
+				             <instanceof
+                           value="org.eclipse.core.resources.IFile"/>
+				             </adapt>
+				            </iterate>
+				           </with>
+         			</visibleWhen> 
+               
+         </command>
+      </menuContribution>
+       <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
+         <command
+               commandId="srampRepositoryBrowser.ImportToSramp"
+               label="Import to S-RAMP repository"
+               style="push">
+               <visibleWhen>
+				           <with variable="activeMenuSelection">
+				            <iterate
+				                 ifEmpty="false">
+				             <adapt type="org.eclipse.core.resources.IResource">
+				             <instanceof
+                           value="org.eclipse.core.resources.IFile"/>
+				             </adapt>
+				            </iterate>
+				           </with>
+         			</visibleWhen>
          </command>
       </menuContribution>
    </extension>

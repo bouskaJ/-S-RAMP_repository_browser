@@ -1,11 +1,16 @@
 package cz.muni.fi.srampRepositoryBrowser.background;
 
-import java.io.File;
+import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.overlord.sramp.client.SrampClientQuery;
 import org.overlord.sramp.client.query.ArtifactSummary;
 import org.overlord.sramp.client.query.QueryResultSet;
 import org.overlord.sramp.common.ArtifactType;
+
+import cz.muni.fi.srampRepositoryBrowser.UI.PropData;
+
 
 /**
  * Browser manager interface.
@@ -44,7 +49,7 @@ public interface BrowserManager {
 	 * @param file content
 	 * @param type type of artifact if type is null the type will  guess
 	 */
-	void uploadArtifact(File file, String name, String type) throws ServiceFailureException ;
+	void uploadArtifact(IFile content, String name, String type, List<PropData> prop) throws ServiceFailureException ;
 	
 	
 	/**
@@ -66,13 +71,15 @@ public interface BrowserManager {
 	/**
 	 * import artifact to workspace
 	 */
-	void importToWorkspace(ArtifactSummary as) throws ServiceFailureException;
+	void importToWorkspace(ArtifactSummary as, IProject project) throws ServiceFailureException;
 
 	/**
 	 * determines whether the manager is connected
 	 * 
 	 * @return if manager is connected return true
 	 */
-	public boolean isConnected();
+	 boolean isConnected();
+	
+	
 
 }

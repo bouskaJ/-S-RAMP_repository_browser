@@ -45,8 +45,8 @@ public class RefreshJob extends Job{
 		protected IStatus run(IProgressMonitor monitor) {
 
 			try {
-				//loading data
-				ui.loadContent();
+				//loading data 
+				ui.loadContent(); 
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
 						//updating table

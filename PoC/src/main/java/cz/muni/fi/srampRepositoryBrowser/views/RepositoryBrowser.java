@@ -26,8 +26,7 @@ public class RepositoryBrowser extends ViewPart {
 	
 	
 	public void createPartControl(Composite parent) {
-	
-		
+				
 		ui = new ScrolledComposite(parent,SWT.H_SCROLL | SWT.V_SCROLL);
 		ui.setMinHeight(350);
 		ui.setMinWidth(970);

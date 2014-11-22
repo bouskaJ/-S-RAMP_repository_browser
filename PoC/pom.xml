@@ -6,20 +6,20 @@
 	<version>1.0.0</version>
 	<packaging>eclipse-plugin</packaging>
 
-<properties>
-    <tycho.version>0.21.0</tycho.version>
-	<sramp.version>0.5.0.Final</sramp.version>
-    <kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
-  </properties>
+	<properties>
+		<tycho.version>0.21.0</tycho.version>
+		<sramp.version>0.5.0.Final</sramp.version>
+		<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
+	</properties>
 
-  <repositories>
-    <repository>
-      <id>kepler</id>
-      <url>${kepler-repo.url}</url>
-      <layout>p2</layout>
-    </repository>
+	<repositories>
+		<repository>
+			<id>kepler</id>
+			<url>${kepler-repo.url}</url>
+			<layout>p2</layout>
+		</repository>
 
-  </repositories>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -100,58 +100,7 @@
 					<!-- baseVersion is to avoid SNAPSHOT dependencies being copied with 
 						ever daily changing timestamp -->
 					<useBaseVersion>true</useBaseVersion>
-					<artifactItems>
 
-						<artifactItem>
-							<groupId>javax.inject</groupId>
-							<artifactId>javax.inject</artifactId>
-							<version>1</version>
-						</artifactItem>
-
-
-
-						<artifactItem>
-							<groupId>org.overlord.sramp</groupId>
-							<artifactId>s-ramp-dev-server</artifactId>
-							<version>${sramp.version}</version>
-						</artifactItem>
-
-						<artifactItem>
-							<groupId>org.overlord.sramp</groupId>
-							<artifactId>s-ramp-api</artifactId>
-							<version>${sramp.version}</version>
-						</artifactItem>
-
-
-						<artifactItem>
-							<artifactId>s-ramp-client</artifactId>
-							<groupId>org.overlord.sramp</groupId>
-							<version>${sramp.version}</version>
-						</artifactItem>
-
-						<artifactItem>
-							<artifactId>s-ramp-atom</artifactId>
-							<groupId>org.overlord.sramp</groupId>
-							<version>${sramp.version}</version>
-						</artifactItem>
-
-
-						<artifactItem>
-							<groupId>org.eclipse.ui</groupId>
-							<artifactId>workbench</artifactId>
-							<version>3.3.0-I20070608-1100</version>
-						</artifactItem>
-
-
-						<artifactItem>
-							<groupId>org.eclipse.swt.gtk.linux</groupId>
-							<artifactId>x86_64</artifactId>
-							<version>3.3.0-v3346</version>
-						</artifactItem>
-
-
-
-					</artifactItems>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -207,18 +156,7 @@
 	</build>
 
 
-
 	<dependencies>
-
-
-
-		<dependency>
-			<groupId>org.overlord.sramp</groupId>
-			<artifactId>s-ramp-api</artifactId>
-			<version>${sramp.version}</version>
-		</dependency>
-
-
 
 		<dependency>
 			<artifactId>s-ramp-client</artifactId>
@@ -226,39 +164,12 @@
 			<version>${sramp.version}</version>
 		</dependency>
 
-		<dependency>
-			<artifactId>s-ramp-atom</artifactId>
-			<groupId>org.overlord.sramp</groupId>
-			<version>${sramp.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.overlord.sramp</groupId>
-			<artifactId>s-ramp-dev-server</artifactId>
-			<version>${sramp.version}</version>
-		</dependency>
-
-
-
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.ui</groupId>
-			<artifactId>workbench</artifactId>
-			<version>3.3.0-I20070608-1100</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.eclipse.swt.gtk.linux</groupId>
-			<artifactId>x86_64</artifactId>
-			<version>3.3.0-v3346</version>
 		</dependency>
 
 

@@ -21,6 +21,7 @@ import cz.muni.fi.srampRepositoryBrowser.background.ServiceFailureException;
 
 
 public class BrowserManagerImplTest {
+	/*
 
 	private BrowserManagerImpl manager;
 	
@@ -174,6 +175,6 @@ QueryResultSet qs = manager.ExecuteQuery(manager.listAllArtifacts());
 		s.close();
 		return f;
 	}
-	
+	*/
 	
 }

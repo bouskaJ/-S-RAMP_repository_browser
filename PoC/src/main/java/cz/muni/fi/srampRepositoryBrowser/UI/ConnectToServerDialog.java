@@ -148,7 +148,7 @@ public class ConnectToServerDialog extends Dialog {
 						try {
 							getManager().setConnection(server, user, password);
 							//setting default query
-							ui.setQuery(getManager().listAllArtifacts());
+							ui.setFilter(getManager().listAllArtifacts());
 
 						} catch (ServiceFailureException e) {
 							Display.getDefault().asyncExec(new Runnable() {
@@ -197,6 +197,8 @@ public class ConnectToServerDialog extends Dialog {
 			}
 
 		});
+		
+		shlConnectToServer.setDefaultButton(OKButton);
 
 	}
 

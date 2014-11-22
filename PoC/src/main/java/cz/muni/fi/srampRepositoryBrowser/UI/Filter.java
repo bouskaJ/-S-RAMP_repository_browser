@@ -329,7 +329,7 @@ public class Filter extends Composite {
 		btnFilter.setText("Filter");
 		btnFilter.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				Filter.this.parent.setQuery(setFilter());
+				Filter.this.parent.setFilter(setFilter());
 				Job refresh = new RefreshJob("refreshing", Filter.this.parent);
 				refresh.schedule();
 			}
@@ -343,7 +343,7 @@ public class Filter extends Composite {
 		btnClearAllFilters.setText("Clear all filters");
 		btnClearAllFilters.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				Filter.this.parent.setQuery(Filter.this.parent.getManager()
+				Filter.this.parent.setFilter(Filter.this.parent.getManager()
 						.listAllArtifacts());
 				typeT.setText("");
 				createdByT.setText("");
@@ -364,6 +364,78 @@ public class Filter extends Composite {
 		});
 
 	}
+	
+	
+	
+	private String findModel(String type)
+	{
+		switch(type){
+		//core
+		case "Document" :
+		case "XmlDocument" : return "core";
+		
+		//xsd
+		case "XsdDocument" :
+		case "AttributeDeclaration":
+		case "ElementDeclaration":
+		case "SimpleTypeDeclaration":
+		case "ComplexTypeDeclaration": return "xsd";
+		
+		//wsdl
+		case "WsdlDocument":
+		case "WsdlService":
+		case "Port":
+		case "WsdlExtension":
+		case "Part":
+		case "Message":
+		case "Fault":
+		case "PortType":
+		case "Operation":
+		case "OperationInput":
+		case "OperationOutput":
+		case "Binding":
+		case "BindingOperation":
+		case "BindingOperationInput":
+		case "BindingOperationOutput":
+		case "BindingOperationFault": return "wsdl";
+				
+		//policy
+		case "PolicyDocument":
+		case "PolicyExpression":
+		case "PolicyAttachment": return "policy";
+		
+		//soa
+		case "HumanActor":
+		case "Choreography":
+		case "ChoreographyProcess":
+		case "Collaboration":
+		case "CollaborationProcess":
+		case "Composition":
+		case "Effect":
+		case "Element":
+		case "Event":
+		case "InformationType":
+		case "Orchestration":
+		case "OrchestrationProcess":
+		case "Policy":
+		case "PolicySubject":
+		case "Process":
+		case "Service":
+		case "ServiceContract":
+		case "ServiceComposition":
+		case "ServiceInterface":
+		case "System":
+		case "Task": return "soa";
+		
+		//serviceImplementation
+		case "Organization":
+		case "ServiceEndpoint":
+		case "ServiceInstance":
+		case "ServiceOperation": return "serviceImplementation";
+		
+		default: return "ext";
+		}
+	}
 
 	/**
 	 * method set query by typeT (type of artifact), createdByT,
@@ -372,7 +444,9 @@ public class Filter extends Composite {
 	private SrampClientQuery setFilter() {
 		String query = "/s-ramp";
 		if (typeT.getText().length() > 0) {
-			query += "/core/" + typeT.getText();
+			query += "/"+findModel(typeT.getText())+"/" + typeT.getText();
+			
+			System.err.println(query);
 		}
 
 		SortedMap<String, String> texts = new TreeMap<>();
@@ -412,7 +486,7 @@ public class Filter extends Composite {
 					query += " and ";
 					datesSize--;
 				}
-			}
+			} 
 			query += "]";
 		}
 
