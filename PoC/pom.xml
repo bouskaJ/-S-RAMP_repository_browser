@@ -91,31 +91,20 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<phase>generate-resources</phase>
-					</execution>
-				</executions>
+					
 				<configuration>
 					<skip>false</skip>
 					<transitive>true</transitive>
-					<outputDirectory>${basedir}/lib/</outputDirectory>
+					<outputDirectory>lib</outputDirectory>
 					<!-- baseVersion is to avoid SNAPSHOT dependencies being copied with 
 						ever daily changing timestamp -->
-					<useBaseVersion>true</useBaseVersion>
+					
 
 				</configuration>
+</execution>
+				</executions>
 			</plugin>
-			<plugin>
-				<!-- make sure lib dir is removed after clean to avoid "dirty" build -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${basedir}/lib</directory>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
+		
 		</plugins>
 		<pluginManagement>
 			<plugins>
