@@ -7,12 +7,15 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -42,6 +45,7 @@ public class ViewMain extends Composite {
 	private QueryResultSet content;
 	private SrampClientQuery filter;
 	private BrowserManager browserManager;
+	private Filter filters;
 
 	/**
 	 * update table with data from content attribute
@@ -91,9 +95,41 @@ public class ViewMain extends Composite {
 		// query line
 		Label lblQuery = new Label(this, SWT.NONE);
 		lblQuery.setText("Query");
+		
 
 		text = new Text(this, SWT.BORDER);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
+		text.addModifyListener(new ModifyListener()
+		{
+			
+			
+			@Override
+			public void modifyText(ModifyEvent arg0) {
+				if(text.getText().isEmpty() && (!filters.isEnabled()))
+				{	
+					Job reload = new RefreshJob("refreshing data", ViewMain.this);
+					reload.schedule();
+					
+					for(Control c : filters.getChildren())	
+					{
+						c.setEnabled(true);
+					}
+					filters.setEnabled(true);
+				}
+				
+				if(!text.getText().isEmpty() && (filters.isEnabled()))
+				{	
+					for(Control c : filters.getChildren())	
+					{
+						c.setEnabled(false);
+					}	
+					filters.setEnabled(false);
+				}
+				
+				
+				
+			}
+		});
 
 		// refresh button
 		Button btnRefresh = new Button(this, SWT.NONE);
@@ -106,14 +142,15 @@ public class ViewMain extends Composite {
 
 			}
 		});
+		this.getShell().setDefaultButton(btnRefresh);
 
 		new Label(this, SWT.NONE);
 
 		// filter
-		Filter filter = new Filter(this, SWT.NONE);
-		filter.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false,
+		filters = new Filter(this, SWT.NONE);
+		filters.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false,
 				2, 1));
-		filter.setSize(320, 280);
+		filters.setSize(320, 280);
 
 		table = new org.eclipse.swt.widgets.Table(this, SWT.BORDER | SWT.MULTI);
 

@@ -122,6 +122,9 @@ public class Filter extends Composite {
 	private Text createdToT;
 	private Text lastModifiedFrom;
 	private Text lastModifiedToT;
+	
+	private Button btnClearAllFilters;
+	private Button btnFilter;
 
 	/**
 	 * Create the composite.
@@ -322,7 +325,7 @@ public class Filter extends Composite {
 		gd_lastModifiedByT.widthHint = 230;
 		lastModifiedByT.setLayoutData(gd_lastModifiedByT);
 
-		Button btnFilter = new Button(this, SWT.NONE);
+		btnFilter = new Button(this, SWT.NONE);
 		btnFilter.setEnabled(true);
 		btnFilter.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false,
 				false, 1, 1));
@@ -336,7 +339,7 @@ public class Filter extends Composite {
 		});
 		new Label(this, SWT.NONE);
 
-		Button btnClearAllFilters = new Button(this, SWT.NONE);
+		btnClearAllFilters = new Button(this, SWT.NONE);
 		btnClearAllFilters.setEnabled(true);
 		btnClearAllFilters.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER,
 				false, false, 1, 1));
@@ -503,6 +506,8 @@ public class Filter extends Composite {
 		return srampQuery;
 
 	}
+	
+	
 
 	
 }

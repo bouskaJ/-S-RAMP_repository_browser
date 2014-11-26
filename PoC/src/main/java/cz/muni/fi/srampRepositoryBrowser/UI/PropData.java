@@ -13,7 +13,7 @@ public class PropData{
 
 	private String value;
 	
-	PropData(String name,String value)
+	public PropData(String name,String value)
 	{
 		this.name = name;
 		this.value = value;

@@ -1,8 +1,5 @@
 package cz.muni.fi.srampRepositoryBrowser.UI;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -47,8 +44,7 @@ class Mutex implements ISchedulingRule {
  * 
  */
 public class ConnectToServerDialog extends Dialog {
-	static final Dimension SCREEN_DIMENSION = Toolkit.getDefaultToolkit()
-			.getScreenSize();
+	
 	private static final Mutex rule = new Mutex();
 
 	protected Object result;
@@ -98,9 +94,7 @@ public class ConnectToServerDialog extends Dialog {
 		shlConnectToServer.setText("Connect to server");
 		int width = 450;
 		int height = 176;
-		int dialogX = SCREEN_DIMENSION.width / 2 - width / 2;
-		int dialogY = SCREEN_DIMENSION.height / 2 - height / 2;
-		shlConnectToServer.setBounds(dialogX, dialogY, width, height);
+		shlConnectToServer.setSize(width, height);
 		shlConnectToServer.setLayout(new GridLayout(2, false));
 
 		Label usernameLabel = new Label(shlConnectToServer, SWT.NONE);

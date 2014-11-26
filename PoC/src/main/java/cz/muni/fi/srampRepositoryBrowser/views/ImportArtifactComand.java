@@ -88,10 +88,7 @@ public class ImportArtifactComand extends AbstractHandler {
 			log.log(Level.WARNING, "Selection is null.");
 		}
 
-		/*
-		 * MessageDialog .openError(HandlerUtil.getActiveShell(event),
-		 * "Importing failed!", "Importing failed.");
-		 */
+		
 		return null;
 	}
 

@@ -65,10 +65,9 @@ public class ChooseProjectDialog extends Dialog {
 		shlProjectDialog.setText("Choose target project!");
 		int width = 300;
 		int height = 400;
-		int dialogX = SCREEN_DIMENSION.width / 2 - width / 2;
-		int dialogY = SCREEN_DIMENSION.height / 2 - height / 2;
+		
 
-		shlProjectDialog.setBounds(dialogX, dialogY, width, height);
+		shlProjectDialog.setSize(width, height);
 		shlProjectDialog.setLayout(new GridLayout(2, true));
 
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();

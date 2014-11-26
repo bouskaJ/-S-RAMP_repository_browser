@@ -42,6 +42,7 @@ public class BrowserManagerImpl implements BrowserManager {
 		try {
 			client = new SrampAtomApiClient(endpoint, username, password, true);
 			isConected = true;
+			log.log(Level.INFO, "connected.");
 		} catch (SrampClientException e) {
 			log.log(Level.WARNING, "Problem with connecting", e);
 			throw new ServiceFailureException("Problem with connecting", e);
@@ -71,25 +72,27 @@ public class BrowserManagerImpl implements BrowserManager {
 	{
 		if (!content.exists()) {
 			log.log(Level.WARNING,
-					"Problem with importing to S-RAMP - file dont' exists.");
+					"Problem with importing to S-RAMP - file don't exists.");
 			throw new ServiceFailureException(
-					"Problem with importing to S-RAMP - file dont' exists.");
+					"Problem with importing to S-RAMP - file don't exists.");
 		}
 
 		if (name.isEmpty()) {
 			name = content.getName();
-			log.log(Level.INFO,"naming content - new name:" + name);
+			
 		}
 
 		if (type.isEmpty()) {
 			ArtifactTypeGuessingService gs = new ArtifactTypeGuessingService();
 			type = gs.guess(content.getName());
-			log.log(Level.INFO,"typing content - new type:" + type);
+			
 		}
 
 		try (InputStream is = content.getContents()) {
 
 			BaseArtifactType artifact = client.uploadArtifact(ArtifactType.valueOf(type), is, name);
+			log.log(Level.INFO,"upload artifact name "+artifact.getName());
+			
 			for(PropData pr : prop)
 			{
 				String propName = pr.getName();
@@ -104,7 +107,7 @@ public class BrowserManagerImpl implements BrowserManager {
 			if(!prop.isEmpty())
 			{ 
 				client.updateArtifactMetaData(artifact);
-				log.log(Level.INFO,"adding property");
+				log.log(Level.INFO,"add property into artifact - "+artifact.getName());
 			}
 		} catch (IOException | CoreException e) {
 			log.log(Level.WARNING,
@@ -131,19 +134,14 @@ public class BrowserManagerImpl implements BrowserManager {
 
 		try {
 			client.deleteArtifact(uuid, type);
-		} catch (SrampAtomException e) {
+			log.log(Level.INFO,"delete artifact");
+		} catch (SrampAtomException |SrampClientException e) {
 			log.log(Level.WARNING, "Problem with deleting artifact (uuid = "
 					+ uuid + ").", e);
 			throw new ServiceFailureException(
 					"Problem with deleting artifact (uuid = " + uuid + ").", e);
 
-		} catch (SrampClientException e) {
-			log.log(Level.WARNING, "Problem with deleting artifact (uuid = "
-					+ uuid + ").", e);
-			throw new ServiceFailureException(
-					"Problem with deleting artifact (uuid = " + uuid + ").", e);
-
-		}
+		} 
 
 	}
 
@@ -151,18 +149,12 @@ public class BrowserManagerImpl implements BrowserManager {
 			throws ServiceFailureException {
 		try {
 			return query.query();
-		} catch (SrampAtomException e) {
+		} catch (SrampAtomException | SrampClientException e) {
 			log.log(Level.WARNING, "Problem with execute query (" + query
 					+ ").", e);
 			throw new ServiceFailureException("Problem with execute query ("
 					+ query + ").", e);
-		} catch (SrampClientException e) {
-			log.log(Level.WARNING, "Problem with execute query (" + query
-					+ ").", e);
-			throw new ServiceFailureException("Problem with execute query ("
-					+ query + ").", e);
-		}
-
+		} 
 	}
 
 	public void importToWorkspace(ArtifactSummary as, IProject project)
@@ -176,8 +168,10 @@ public class BrowserManagerImpl implements BrowserManager {
 			IFile file = project.getFile(as.getName());
 			if (file.exists()) {
 				file.delete(IResource.NONE, null);
+				log.log(Level.INFO, "Remove file with same name as imported file.");
 			}
 			file.create(str, IResource.NONE, null);
+			log.log(Level.INFO, "Artifact was succesfully imported to workspace.");
 
 		} catch (SrampClientException | SrampAtomException | CoreException e) {
 			log.log(Level.WARNING,
