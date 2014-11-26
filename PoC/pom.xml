@@ -96,8 +96,7 @@
 							<skip>false</skip>
 							<transitive>true</transitive>
 							<outputDirectory>lib</outputDirectory>
-							<!-- baseVersion is to avoid SNAPSHOT dependencies being copied with 
-								ever daily changing timestamp -->
+							<excludeScope>system</excludeScope>
 
 
 						</configuration>
@@ -118,9 +117,9 @@
 					</filesets>
 				</configuration>
 			</plugin>
-		
 
-	</plugins>
+
+		</plugins>
 		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
