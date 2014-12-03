@@ -6,7 +6,7 @@
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<properties>
-		<sramp.version>0.5.0.Final</sramp.version>
+		<sramp.version>0.7.0-SNAPSHOT</sramp.version>
 		<tycho.version>0.21.0</tycho.version>
 		<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
 	</properties>

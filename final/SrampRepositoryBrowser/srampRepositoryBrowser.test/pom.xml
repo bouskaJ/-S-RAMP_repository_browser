@@ -57,6 +57,7 @@
 							<skip>false</skip>
 							<transitive>true</transitive>
 							<outputDirectory>lib</outputDirectory>
+							<stripVersion>true</stripVersion>
 							<excludeScope>system</excludeScope>
 
 
