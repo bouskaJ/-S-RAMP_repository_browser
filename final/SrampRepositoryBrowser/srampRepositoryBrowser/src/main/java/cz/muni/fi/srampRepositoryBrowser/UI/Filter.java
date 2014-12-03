@@ -478,8 +478,10 @@ public class Filter extends Composite {
 		if (lastModifTo != null)
 			dates.put("lastModifiedTimestamp <", lastModifTo);
 
+		query += "[@derived = 'false' ";
+		
 		if ((!texts.isEmpty()) || (!dates.isEmpty())) {
-			query += "[";
+			query += "and";
 			int textsSize = texts.size() - 1;
 			for (String s : texts.keySet()) {
 				query += "@" + s + "= ?";
@@ -500,9 +502,10 @@ public class Filter extends Composite {
 					datesSize--;
 				}
 			} 
-			query += "]";
+			
 		}
 
+		query += "]";
 		SrampClientQuery srampQuery = parent.getManager().buildQuery(query);
 
 		for (String s : texts.keySet()) {

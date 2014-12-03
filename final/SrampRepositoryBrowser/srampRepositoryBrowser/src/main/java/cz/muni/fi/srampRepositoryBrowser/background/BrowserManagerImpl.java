@@ -62,7 +62,7 @@ public class BrowserManagerImpl implements BrowserManager {
 
 	public SrampClientQuery listAllArtifacts() {
 
-		return buildQuery("/s-ramp");
+		return buildQuery("/s-ramp[@derived = 'false']");
 
 	}
 

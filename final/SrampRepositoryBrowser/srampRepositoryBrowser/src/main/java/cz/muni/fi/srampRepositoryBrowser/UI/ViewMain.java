@@ -54,11 +54,14 @@ public class ViewMain extends Composite {
 
 		table.removeAll();
 		for (ArtifactSummary as : content) {
-			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(new String[] { as.getName(), as.getType().getType(),
-					as.getLastModifiedTimestamp().toString(),
-					as.getCreatedTimestamp().toString() });
 
+				TableItem item = new TableItem(table, SWT.NONE);
+				item.setText(new String[] { as.getName(),
+						as.getType().getType(),
+						as.getLastModifiedTimestamp().toString(),
+						as.getCreatedTimestamp().toString() });
+
+			
 		}
 
 	}
@@ -163,12 +166,29 @@ public class ViewMain extends Composite {
 				if (selectionIndex != (-1)) {
 					final ArtifactSummary artifact = content
 							.get(selectionIndex);
+					
+					if(artifact.isDerived())
+					{
+						Display.getDefault().asyncExec(
+								new Runnable() {
+									public void run() {
+										MessageDialog.openError(
+												ViewMain.this
+														.getShell(),
+												"Importing failed!",
+												"You can't import derived artifact.");
+
+									}
+								});
+						
+					}else{
 					ChooseProjectDialog d = new ChooseProjectDialog(
 							ViewMain.this.getShell(), SWT.TITLE
 									| SWT.APPLICATION_MODAL);
 					final IProject project = d.open();
 					if (project != null) {
 
+						
 						Job importing = new Job("importing artifact") {
 
 							@Override
@@ -183,8 +203,7 @@ public class ViewMain extends Composite {
 								try {
 
 									// importing
-									browserManager.importToWorkspace(artifact,
-											project);
+									browserManager.importToWorkspace(artifact,project);
 
 								} catch (ServiceFailureException e) {
 									Display.getDefault().asyncExec(
@@ -208,6 +227,7 @@ public class ViewMain extends Composite {
 						importing.schedule();
 
 					}
+				}
 				}
 			}
 		});
