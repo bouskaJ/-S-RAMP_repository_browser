@@ -21,13 +21,11 @@ import java.util.Map;
 
 import org.overlord.sramp.common.ArtifactTypeEnum;
 
-
-
 /**
  * Service used to guess artifact types from filenames.
  * 
  * @author eric.wittmann@redhat.com
- */ 
+ */
 
 public class ArtifactTypeGuessingService {
 	private static Map<String, String> nameMap = new HashMap<String, String>();

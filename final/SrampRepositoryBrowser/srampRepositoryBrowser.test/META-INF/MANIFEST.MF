@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.swtbot.eclipse.finder,
  org.hamcrest.core,
  org.apache.commons.collections,
  org.apache.log4j,
- org.eclipse.ui
+ org.eclipse.ui,
+  org.eclipse.core.resources
 Import-Package: org.junit,
  org.junit.runner;version="4.11.0"
 Bundle-ClassPath: .,

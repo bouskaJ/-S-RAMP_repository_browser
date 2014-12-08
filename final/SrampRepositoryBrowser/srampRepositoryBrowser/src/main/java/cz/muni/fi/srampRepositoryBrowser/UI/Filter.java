@@ -122,7 +122,7 @@ public class Filter extends Composite {
 	private Text createdToT;
 	private Text lastModifiedFrom;
 	private Text lastModifiedToT;
-	
+
 	private Button btnClearAllFilters;
 	private Button btnFilter;
 
@@ -172,7 +172,7 @@ public class Filter extends Composite {
 				false, 1, 1);
 		gd_createdFromT.widthHint = 107;
 		createdFromT.setLayoutData(gd_createdFromT);
-		//open calendar and set the date
+		// open calendar and set the date
 		createdFromT.addMouseListener(new MouseListener() {
 
 			@Override
@@ -372,29 +372,29 @@ public class Filter extends Composite {
 		});
 
 	}
-	
-	
+
 	/**
 	 * Find artifact model from artifact type.
 	 * 
 	 * @param type
 	 * @return artifact model
 	 */
-	private String findModel(String type)
-	{
-		switch(type){
-		//core
-		case "Document" :
-		case "XmlDocument" : return "core";
-		
-		//xsd
-		case "XsdDocument" :
+	private String findModel(String type) {
+		switch (type) {
+		// core
+		case "Document":
+		case "XmlDocument":
+			return "core";
+
+			// xsd
+		case "XsdDocument":
 		case "AttributeDeclaration":
 		case "ElementDeclaration":
 		case "SimpleTypeDeclaration":
-		case "ComplexTypeDeclaration": return "xsd";
-		
-		//wsdl
+		case "ComplexTypeDeclaration":
+			return "xsd";
+
+			// wsdl
 		case "WsdlDocument":
 		case "WsdlService":
 		case "Port":
@@ -410,14 +410,16 @@ public class Filter extends Composite {
 		case "BindingOperation":
 		case "BindingOperationInput":
 		case "BindingOperationOutput":
-		case "BindingOperationFault": return "wsdl";
-				
-		//policy
+		case "BindingOperationFault":
+			return "wsdl";
+
+			// policy
 		case "PolicyDocument":
 		case "PolicyExpression":
-		case "PolicyAttachment": return "policy";
-		
-		//soa
+		case "PolicyAttachment":
+			return "policy";
+
+			// soa
 		case "HumanActor":
 		case "Choreography":
 		case "ChoreographyProcess":
@@ -438,27 +440,31 @@ public class Filter extends Composite {
 		case "ServiceComposition":
 		case "ServiceInterface":
 		case "System":
-		case "Task": return "soa";
-		
-		//serviceImplementation
+		case "Task":
+			return "soa";
+
+			// serviceImplementation
 		case "Organization":
 		case "ServiceEndpoint":
 		case "ServiceInstance":
-		case "ServiceOperation": return "serviceImplementation";
-		
-		default: return "ext";
+		case "ServiceOperation":
+			return "serviceImplementation";
+
+		default:
+			return "ext";
 		}
 	}
 
 	/**
 	 * Method set query by typeT field (type of artifact), createdByT,
-	 * lastModifiedByT, createdFrom, createdTo, lastModifFrom and lastModifTo field.
+	 * lastModifiedByT, createdFrom, createdTo, lastModifFrom and lastModifTo
+	 * field.
 	 */
 	private SrampClientQuery setFilter() {
 		String query = "/s-ramp";
 		if (typeT.getText().length() > 0) {
-			query += "/"+findModel(typeT.getText())+"/" + typeT.getText();
-			
+			query += "/" + findModel(typeT.getText()) + "/" + typeT.getText();
+
 			System.err.println(query);
 		}
 
@@ -479,7 +485,7 @@ public class Filter extends Composite {
 			dates.put("lastModifiedTimestamp <", lastModifTo);
 
 		query += "[@derived = 'false' ";
-		
+
 		if ((!texts.isEmpty()) || (!dates.isEmpty())) {
 			query += "and";
 			int textsSize = texts.size() - 1;
@@ -501,8 +507,8 @@ public class Filter extends Composite {
 					query += " and ";
 					datesSize--;
 				}
-			} 
-			
+			}
+
 		}
 
 		query += "]";
@@ -519,8 +525,5 @@ public class Filter extends Composite {
 		return srampQuery;
 
 	}
-	
-	
 
-	
 }

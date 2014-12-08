@@ -2,7 +2,7 @@ package cz.muni.fi.srampRepositoryBrowser.background;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,9 +18,6 @@ import org.overlord.sramp.client.SrampClientQuery;
 import org.overlord.sramp.client.query.ArtifactSummary;
 import org.overlord.sramp.client.query.QueryResultSet;
 import org.overlord.sramp.common.ArtifactType;
-
-import cz.muni.fi.srampRepositoryBrowser.UI.PropData;
-
 
 /**
  * Browser manager interface impl.
@@ -67,7 +64,7 @@ public class BrowserManagerImpl implements BrowserManager {
 	}
 
 	public void uploadArtifact(IFile content, String name, String type,
-			List<PropData> prop) throws ServiceFailureException
+			Properties prop) throws ServiceFailureException
 
 	{
 		if (!content.exists()) {
@@ -79,35 +76,36 @@ public class BrowserManagerImpl implements BrowserManager {
 
 		if (name.isEmpty()) {
 			name = content.getName();
-			
+
 		}
 
 		if (type.isEmpty()) {
 			ArtifactTypeGuessingService gs = new ArtifactTypeGuessingService();
 			type = gs.guess(content.getName());
-			
+
 		}
 
 		try (InputStream is = content.getContents()) {
 
-			BaseArtifactType artifact = client.uploadArtifact(ArtifactType.valueOf(type), is, name);
-			log.log(Level.INFO,"Uploading the artifact "+artifact.getName());
-			
-			for(PropData pr : prop)
-			{
-				String propName = pr.getName();
-				String propVal = pr.getValue();
+			BaseArtifactType artifact = client.uploadArtifact(
+					ArtifactType.valueOf(type), is, name);
+			log.log(Level.INFO, "Uploading the artifact " + artifact.getName());
+
+			for (Object pr : prop.keySet()) {
+				String propName = (String) pr;
+				String propVal = prop.getProperty((String) pr);
+
 				org.oasis_open.docs.s_ramp.ns.s_ramp_v1.Property srProperty = new org.oasis_open.docs.s_ramp.ns.s_ramp_v1.Property();
 				srProperty.setPropertyName(propName);
 				srProperty.setPropertyValue(propVal);
-				
+
 				artifact.getProperty().add(srProperty);
 			}
-			
-			if(!prop.isEmpty())
-			{ 
+
+			if (!prop.isEmpty()) {
 				client.updateArtifactMetaData(artifact);
-				log.log(Level.INFO,"Add the property into the artifact - "+artifact.getName());
+				log.log(Level.INFO, "Add the property into the artifact - "
+						+ artifact.getName());
 			}
 		} catch (IOException | CoreException e) {
 			log.log(Level.WARNING,
@@ -134,14 +132,14 @@ public class BrowserManagerImpl implements BrowserManager {
 
 		try {
 			client.deleteArtifact(uuid, type);
-			log.log(Level.INFO,"delete artifact");
-		} catch (SrampAtomException |SrampClientException e) {
+			log.log(Level.INFO, "delete artifact");
+		} catch (SrampAtomException | SrampClientException e) {
 			log.log(Level.WARNING, "Problem with deleting artifact (uuid = "
 					+ uuid + ").", e);
 			throw new ServiceFailureException(
 					"Problem with deleting artifact (uuid = " + uuid + ").", e);
 
-		} 
+		}
 
 	}
 
@@ -154,7 +152,7 @@ public class BrowserManagerImpl implements BrowserManager {
 					+ ").", e);
 			throw new ServiceFailureException("Problem with execute query ("
 					+ query + ").", e);
-		} 
+		}
 	}
 
 	public void importToWorkspace(ArtifactSummary as, IProject project)
@@ -168,10 +166,12 @@ public class BrowserManagerImpl implements BrowserManager {
 			IFile file = project.getFile(as.getName());
 			if (file.exists()) {
 				file.delete(IResource.NONE, null);
-				log.log(Level.INFO, "Remove file with same name as imported file.");
+				log.log(Level.INFO,
+						"Remove file with same name as imported file.");
 			}
 			file.create(str, IResource.NONE, null);
-			log.log(Level.INFO, "Artifact was succesfully imported to workspace.");
+			log.log(Level.INFO,
+					"Artifact was succesfully imported to workspace.");
 
 		} catch (SrampClientException | SrampAtomException | CoreException e) {
 			log.log(Level.WARNING,

@@ -55,13 +55,11 @@ public class ViewMain extends Composite {
 		table.removeAll();
 		for (ArtifactSummary as : content) {
 
-				TableItem item = new TableItem(table, SWT.NONE);
-				item.setText(new String[] { as.getName(),
-						as.getType().getType(),
-						as.getLastModifiedTimestamp().toString(),
-						as.getCreatedTimestamp().toString() });
+			TableItem item = new TableItem(table, SWT.NONE);
+			item.setText(new String[] { as.getName(), as.getType().getType(),
+					as.getLastModifiedTimestamp().toString(),
+					as.getCreatedTimestamp().toString() });
 
-			
 		}
 
 	}
@@ -166,68 +164,66 @@ public class ViewMain extends Composite {
 				if (selectionIndex != (-1)) {
 					final ArtifactSummary artifact = content
 							.get(selectionIndex);
-					
-					if(artifact.isDerived())
-					{
-						Display.getDefault().asyncExec(
-								new Runnable() {
-									public void run() {
-										MessageDialog.openError(
-												ViewMain.this
-														.getShell(),
-												"Importing failed!",
-												"You can't import derived artifact.");
 
-									}
-								});
-						
-					}else{
-					ChooseProjectDialog d = new ChooseProjectDialog(
-							ViewMain.this.getShell(), SWT.TITLE
-									| SWT.APPLICATION_MODAL);
-					final IProject project = d.open();
-					if (project != null) {
+					if (artifact.isDerived()) {
+						Display.getDefault().asyncExec(new Runnable() {
+							public void run() {
+								MessageDialog.openError(
+										ViewMain.this.getShell(),
+										"Importing failed!",
+										"You can't import derived artifact.");
 
-						
-						Job importing = new Job("importing artifact") {
-
-							@Override
-							public boolean shouldRun() {
-								return super.shouldSchedule()
-										&& getManager().isConnected();
 							}
+						});
 
-							@Override
-							protected IStatus run(IProgressMonitor monitor) {
+					} else {
+						ChooseProjectDialog d = new ChooseProjectDialog(
+								ViewMain.this.getShell(), SWT.TITLE
+										| SWT.APPLICATION_MODAL);
+						final IProject project = d.open();
+						if (project != null) {
 
-								try {
+							Job importing = new Job("importing artifact") {
 
-									// importing
-									browserManager.importToWorkspace(artifact,project);
-
-								} catch (ServiceFailureException e) {
-									Display.getDefault().asyncExec(
-											new Runnable() {
-												public void run() {
-													MessageDialog.openError(
-															ViewMain.this
-																	.getShell(),
-															"Importing failed!",
-															"Error while importing artifact to repository.");
-
-												}
-											});
+								@Override
+								public boolean shouldRun() {
+									return super.shouldSchedule()
+											&& getManager().isConnected();
 								}
 
-								return Status.OK_STATUS;
-							}
+								@Override
+								protected IStatus run(IProgressMonitor monitor) {
 
-						};
+									try {
 
-						importing.schedule();
+										// importing
+										browserManager.importToWorkspace(
+												artifact, project);
 
+									} catch (ServiceFailureException e) {
+										Display.getDefault().asyncExec(
+												new Runnable() {
+													public void run() {
+														MessageDialog
+																.openError(
+																		ViewMain.this
+																				.getShell(),
+																		"Importing failed!",
+																		"Error while importing artifact to repository.");
+
+													}
+												});
+									}
+
+									return Status.OK_STATUS;
+								}
+
+							};
+
+							importing.schedule();
+
+						}
 					}
-				}
 				}
 			}
 		});

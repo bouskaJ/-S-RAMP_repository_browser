@@ -15,14 +15,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
-
 /**
  * Class represents choose project dialog.
+ * 
  * @author Jan Bouska
- *
+ * 
  */
 public class ChooseProjectDialog extends Dialog {
-	
+
 	private IProject result;
 	private Shell shlProjectDialog;
 	private Table table;
@@ -66,7 +66,6 @@ public class ChooseProjectDialog extends Dialog {
 		shlProjectDialog.setText("Choose the target project!");
 		int width = 300;
 		int height = 400;
-		
 
 		shlProjectDialog.setSize(width, height);
 		shlProjectDialog.setLayout(new GridLayout(2, true));
@@ -112,7 +111,7 @@ public class ChooseProjectDialog extends Dialog {
 			}
 
 		});
-		
+
 		shlProjectDialog.setDefaultButton(ok);
 
 	}

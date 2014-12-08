@@ -1,6 +1,5 @@
 package cz.muni.fi.srampRepositoryBrowser.views;
 
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.Composite;
@@ -8,12 +7,12 @@ import org.eclipse.ui.part.ViewPart;
 
 import cz.muni.fi.srampRepositoryBrowser.UI.ViewMain;
 
-
 /**
  * Main class representing Repository Browser View.
+ * 
  * @author Jan Bouska
- *	
- *
+ * 
+ * 
  */
 public class RepositoryBrowser extends ViewPart {
 
@@ -23,32 +22,28 @@ public class RepositoryBrowser extends ViewPart {
 	public static final String ID = "cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser";
 	private ScrolledComposite ui;
 	private ViewMain mainView;
-	
-	
+
 	@Override
 	public void createPartControl(Composite parent) {
-				
-		ui = new ScrolledComposite(parent,SWT.H_SCROLL | SWT.V_SCROLL);
+
+		ui = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		ui.setMinHeight(350);
 		ui.setMinWidth(970);
 		ui.setExpandHorizontal(true);
 		ui.setExpandVertical(true);
-		mainView= new ViewMain(ui,SWT.NONE);
+		mainView = new ViewMain(ui, SWT.NONE);
 		ui.setContent(mainView);
-		
-		
-	}
 
+	}
 
 	/**
 	 * 
 	 * @return main class with UI
 	 */
-	public ViewMain getMainView()
-	{
+	public ViewMain getMainView() {
 		return mainView;
 	}
-	
+
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
@@ -56,5 +51,4 @@ public class RepositoryBrowser extends ViewPart {
 		ui.setFocus();
 	}
 
-	
 }

@@ -21,14 +21,14 @@ import org.eclipse.swt.widgets.Text;
 import cz.muni.fi.srampRepositoryBrowser.background.BrowserManager;
 import cz.muni.fi.srampRepositoryBrowser.background.ServiceFailureException;
 
-
 /**
  * rule for sheduling jobs
+ * 
  * @author Jan Bouska
- *
+ * 
  */
 class Mutex implements ISchedulingRule {
-	
+
 	@Override
 	public boolean isConflicting(ISchedulingRule rule) {
 		return rule == this;
@@ -47,7 +47,7 @@ class Mutex implements ISchedulingRule {
  * 
  */
 public class ConnectToServerDialog extends Dialog {
-	
+
 	private static final Mutex rule = new Mutex();
 
 	private Object result;
@@ -144,7 +144,7 @@ public class ConnectToServerDialog extends Dialog {
 
 						try {
 							getManager().setConnection(server, user, password);
-							//setting default query
+							// setting default query
 							ui.setFilter(getManager().listAllArtifacts());
 
 						} catch (ServiceFailureException e) {
@@ -165,9 +165,8 @@ public class ConnectToServerDialog extends Dialog {
 
 				};
 
-				//loading data and updating table
-				RefreshJob loading = new RefreshJob("loading data",ui);
-				
+				// loading data and updating table
+				RefreshJob loading = new RefreshJob("loading data", ui);
 
 				// setting sheduling rule for jobs
 				connecting.setRule(rule);
@@ -194,13 +193,14 @@ public class ConnectToServerDialog extends Dialog {
 			}
 
 		});
-		
+
 		shlConnectToServer.setDefaultButton(OKButton);
 
 	}
 
 	/**
 	 * return browser manager
+	 * 
 	 * @return browser manager
 	 */
 	private BrowserManager getManager() {

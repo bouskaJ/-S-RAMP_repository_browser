@@ -1,8 +1,5 @@
 package cz.muni.fi.srampRepositoryBrowser.UI;
 
-
-import java.util.List;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -22,10 +19,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import cz.muni.fi.srampRepositoryBrowser.background.ServiceFailureException;
+
 /**
  * import to repository dialog
+ * 
  * @author Jan Bouska
- *
+ * 
  */
 public class ImportToRepositoryDialog extends Dialog {
 
@@ -35,22 +34,24 @@ public class ImportToRepositoryDialog extends Dialog {
 	private Text name;
 	private Text type;
 
-
 	/**
 	 * Create the dialog.
+	 * 
 	 * @param parent
 	 * @param style
 	 */
-	public ImportToRepositoryDialog(Shell parent, int style,IFile file, ViewMain browser) {
+	public ImportToRepositoryDialog(Shell parent, int style, IFile file,
+			ViewMain browser) {
 		super(parent, style);
 		setText("Import to S-RAMP repository");
-		this.file  = file;
+		this.file = file;
 		this.browser = browser;
-		
+
 	}
 
 	/**
 	 * Open the dialog.
+	 * 
 	 * @return the result
 	 */
 	public Object open() {
@@ -71,37 +72,34 @@ public class ImportToRepositoryDialog extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), getStyle());
-		
+
 		shell.setText(getText());
 		shell.setLayout(new GridLayout(2, false));
-		
+
 		Label nameLabel = new Label(shell, SWT.NONE);
 		nameLabel.setText("Name:");
 		new Label(shell, SWT.NONE);
-		
+
 		name = new Text(shell, SWT.BORDER);
 		name.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
-		
+
 		Label artifactTypeLabel = new Label(shell, SWT.NONE);
 		artifactTypeLabel.setText("Artifact Type:");
 		new Label(shell, SWT.NONE);
-		
+
 		type = new Text(shell, SWT.BORDER);
 		type.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
 		new Label(shell, SWT.NONE);
-		
+
 		Label propertiesLabel = new Label(shell, SWT.NONE);
 		propertiesLabel.setText("Properties");
-		
-		
-		
-		final Properties property = new Properties(shell,SWT.BORDER);
-		
+
+		final Properties property = new Properties(shell, SWT.BORDER);
+
 		GridData prGr = new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1);
 		prGr.widthHint = 400;
 		property.setLayoutData(prGr);
-		
-		
+
 		Button OKButton = new Button(shell, SWT.NONE);
 		GridData gd_OKButton = new GridData(SWT.CENTER, SWT.CENTER, false,
 				false, 1, 1);
@@ -111,12 +109,11 @@ public class ImportToRepositoryDialog extends Dialog {
 		OKButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 
-				
 				final String nameFin = name.getText();
 				final String typeFin = type.getText();
-				final List<PropData> propList = property.getPropertyList();
-				
-				
+				final java.util.Properties propList = property
+						.getPropertyList();
+
 				Job uploading = new Job("uploading artifact") {
 
 					/**
@@ -131,20 +128,18 @@ public class ImportToRepositoryDialog extends Dialog {
 					protected IStatus run(IProgressMonitor monitor) {
 
 						try {
-							
-							
-							browser.getManager().uploadArtifact(file, nameFin, typeFin, propList);
-							
+
+							browser.getManager().uploadArtifact(file, nameFin,
+									typeFin, propList);
+
 							Job refresh = new RefreshJob("refreshing data",
 									browser);
 							refresh.schedule();
-							
 
 						} catch (ServiceFailureException e) {
 							Display.getDefault().asyncExec(new Runnable() {
 								public void run() {
-									MessageDialog.openError(
-											browser.getShell(),
+									MessageDialog.openError(browser.getShell(),
 											"Uploading failed!",
 											"Error while uploading the artifact into the repository.");
 
@@ -160,9 +155,6 @@ public class ImportToRepositoryDialog extends Dialog {
 				uploading.schedule();
 				shell.close();
 			}
-			
-				
-			
 
 		});
 
@@ -178,13 +170,10 @@ public class ImportToRepositoryDialog extends Dialog {
 			}
 
 		});
-		
+
 		shell.setDefaultButton(OKButton);
-		
+
 		shell.pack();
-		
-		
-		
 
 	}
 

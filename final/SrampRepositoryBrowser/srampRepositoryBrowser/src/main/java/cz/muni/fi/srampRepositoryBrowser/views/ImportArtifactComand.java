@@ -103,11 +103,8 @@ public class ImportArtifactComand extends AbstractHandler {
 	 */
 	private IViewPart getView(ExecutionEvent event) {
 
-		IViewReference ref = HandlerUtil
-				.getActiveWorkbenchWindow(event)
-				.getActivePage()
-				.findViewReference(
-						RepositoryBrowser.ID);
+		IViewReference ref = HandlerUtil.getActiveWorkbenchWindow(event)
+				.getActivePage().findViewReference(RepositoryBrowser.ID);
 		if (ref == null)
 			return null;
 

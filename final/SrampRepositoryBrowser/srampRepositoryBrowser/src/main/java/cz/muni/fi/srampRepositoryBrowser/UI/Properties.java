@@ -45,7 +45,7 @@ class Properties extends Composite {
 
 	}
 
-	public List<PropData> getPropertyList() {
+	public java.util.Properties getPropertyList() {
 		return prop.getData();
 	}
 
@@ -147,14 +147,16 @@ class Prop extends Composite {
 	/**
 	 * return list of property data
 	 */
-	public List<PropData> getData() {
-		List<PropData> data = new ArrayList<>();
+	public java.util.Properties getData() {
+
+		java.util.Properties data = new java.util.Properties();
+
 		for (Property p : list) {
 			if (p.getNameT().isEmpty()) {
 				continue;
 			}
-			PropData d = new PropData(p.getNameT(), p.getValueT());
-			data.add(d);
+			data.setProperty(p.getNameT(), p.getValueT());
+
 		}
 
 		return data;
