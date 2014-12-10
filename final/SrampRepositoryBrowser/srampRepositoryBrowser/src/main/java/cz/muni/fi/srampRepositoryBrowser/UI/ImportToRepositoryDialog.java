@@ -81,6 +81,7 @@ public class ImportToRepositoryDialog extends Dialog {
 		new Label(shell, SWT.NONE);
 
 		name = new Text(shell, SWT.BORDER);
+		name.setText(file.getName());
 		name.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
 
 		Label artifactTypeLabel = new Label(shell, SWT.NONE);

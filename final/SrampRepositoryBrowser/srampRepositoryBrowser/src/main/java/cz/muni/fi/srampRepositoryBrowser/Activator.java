@@ -1,4 +1,4 @@
-package sramprepositorybrowser;
+package cz.muni.fi.srampRepositoryBrowser;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
