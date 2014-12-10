@@ -26,8 +26,8 @@ import org.overlord.sramp.client.query.ArtifactSummary;
 import org.overlord.sramp.client.query.QueryResultSet;
 import org.overlord.sramp.common.ArtifactType;
 
-import cz.muni.fi.srampRepositoryBrowser.background.BrowserManagerImpl;
-import cz.muni.fi.srampRepositoryBrowser.background.ServiceFailureException;
+import cz.muni.fi.srampRepositoryBrowser.manager.BrowserManagerImpl;
+import cz.muni.fi.srampRepositoryBrowser.manager.ServiceFailureException;
 
 public class BrowserManagerImplTest {
 
