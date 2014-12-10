@@ -10,7 +10,7 @@
       </category>
       <view
             category="sramp"
-            class="cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser"
+            class="cz.muni.fi.srampRepositoryBrowser.commands.RepositoryBrowser"
             icon="icons/sample.gif"
             id="cz.muni.fi.srampRepositoryBrowser.views.RepositoryBrowser"
             name="Repository Browser">
@@ -37,12 +37,12 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="cz.muni.fi.srampRepositoryBrowser.views.ConnectToServerComand"
+            defaultHandler="cz.muni.fi.srampRepositoryBrowser.commands.ConnectToServerComand"
             id="srampRepositoryBrowser.ConnectToServer"
             name="ConnectToServer">
       </command>
       <command
-            defaultHandler="cz.muni.fi.srampRepositoryBrowser.views.ImportArtifactComand"
+            defaultHandler="cz.muni.fi.srampRepositoryBrowser.commands.ImportArtifactComand"
             id="srampRepositoryBrowser.ImportToSramp"
             name="ImportToSramp">
       </command>

@@ -1,4 +1,4 @@
-package cz.muni.fi.srampRepositoryBrowser.UI;
+package cz.muni.fi.srampRepositoryBrowser.dialogs;
 
 import java.util.ArrayList;
 import java.util.List;

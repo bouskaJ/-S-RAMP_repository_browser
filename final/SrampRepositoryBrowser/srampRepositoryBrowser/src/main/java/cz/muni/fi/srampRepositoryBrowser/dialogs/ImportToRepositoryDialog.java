@@ -1,4 +1,4 @@
-package cz.muni.fi.srampRepositoryBrowser.UI;
+package cz.muni.fi.srampRepositoryBrowser.dialogs;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import cz.muni.fi.srampRepositoryBrowser.background.ServiceFailureException;
+import cz.muni.fi.srampRepositoryBrowser.manager.ServiceFailureException;
 
 /**
  * import to repository dialog

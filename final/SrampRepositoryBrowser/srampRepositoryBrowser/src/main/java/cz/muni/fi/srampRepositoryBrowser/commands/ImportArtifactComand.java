@@ -1,4 +1,4 @@
-package cz.muni.fi.srampRepositoryBrowser.views;
+package cz.muni.fi.srampRepositoryBrowser.commands;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +17,7 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import cz.muni.fi.srampRepositoryBrowser.UI.ImportToRepositoryDialog;
+import cz.muni.fi.srampRepositoryBrowser.dialogs.ImportToRepositoryDialog;
 
 /**
  * Default handler for ImportArtifactComand

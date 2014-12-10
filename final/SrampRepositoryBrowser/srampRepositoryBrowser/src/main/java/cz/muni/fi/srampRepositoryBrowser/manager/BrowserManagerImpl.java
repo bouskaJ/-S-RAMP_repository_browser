@@ -1,4 +1,4 @@
-package cz.muni.fi.srampRepositoryBrowser.background;
+package cz.muni.fi.srampRepositoryBrowser.manager;
 
 import java.io.IOException;
 import java.io.InputStream;

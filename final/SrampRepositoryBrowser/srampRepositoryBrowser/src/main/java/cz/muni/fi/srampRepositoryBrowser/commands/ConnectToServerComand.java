@@ -1,4 +1,4 @@
-package cz.muni.fi.srampRepositoryBrowser.views;
+package cz.muni.fi.srampRepositoryBrowser.commands;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,7 +9,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import cz.muni.fi.srampRepositoryBrowser.UI.ConnectToServerDialog;
+import cz.muni.fi.srampRepositoryBrowser.dialogs.ConnectToServerDialog;
 
 /**
  * 

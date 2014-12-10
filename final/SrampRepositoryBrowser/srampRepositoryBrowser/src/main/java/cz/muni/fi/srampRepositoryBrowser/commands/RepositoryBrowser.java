@@ -1,11 +1,11 @@
-package cz.muni.fi.srampRepositoryBrowser.views;
+package cz.muni.fi.srampRepositoryBrowser.commands;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-import cz.muni.fi.srampRepositoryBrowser.UI.ViewMain;
+import cz.muni.fi.srampRepositoryBrowser.dialogs.ViewMain;
 
 /**
  * Main class representing Repository Browser View.

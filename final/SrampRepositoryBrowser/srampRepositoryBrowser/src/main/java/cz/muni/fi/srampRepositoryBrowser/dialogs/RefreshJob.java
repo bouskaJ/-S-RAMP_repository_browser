@@ -1,4 +1,4 @@
-package cz.muni.fi.srampRepositoryBrowser.UI;
+package cz.muni.fi.srampRepositoryBrowser.dialogs;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 
-import cz.muni.fi.srampRepositoryBrowser.background.ServiceFailureException;
+import cz.muni.fi.srampRepositoryBrowser.manager.ServiceFailureException;
 
 /**
  * loading data from the repository and update the table

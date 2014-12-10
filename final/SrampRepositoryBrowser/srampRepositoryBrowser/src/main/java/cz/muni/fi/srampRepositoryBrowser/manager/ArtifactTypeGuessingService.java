@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cz.muni.fi.srampRepositoryBrowser.background;
+package cz.muni.fi.srampRepositoryBrowser.manager;
 
 import java.io.File;
 import java.util.HashMap;
