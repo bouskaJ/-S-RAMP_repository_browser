@@ -5,7 +5,7 @@ S-RAMP repository browser provides view for using S-RAMP repository in Eclipse B
 Building S-RAMP repository browser
 We use Maven 3.x to build this software. The following commands compile the code, install the JAR into your local Maven repository and run all  the tests:
 
-      1. $ git clone https://github.com/bouskaJ/-S-RAMP_repository_browser
+      1. $ git clone https://github.com/bouskaJ/-S-RAMP_repository_browser.git
       2. $ cd ./-S-RAMP_repository_browser/final/SrampRepositoryBrowser
       3. $ mvn clean install
 
