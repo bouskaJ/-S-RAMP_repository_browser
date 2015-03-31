@@ -1,9 +1,0 @@
-
-*~
-*.jar
-.classpath
-.project
-target
-.settings
-bin
-lib
