@@ -17,7 +17,7 @@ If you want to build software without testing you can run this command instead o
     $ mvn clean package
 
 ##Installing 
-After building successfully, you can install plug-in to your development environment. Copy ./srampRepositoryBrowser-xxx.jar to the dropins folder of your IDE and then restart IDE.
+After building successfully, you can install plug-in to your development environment. Copy ./repository-browser/target/srampRepositoryBrowser-xxx.jar to the dropins folder of your IDE and then restart IDE.
 
 ##Basic Usage
 To connect to the S-RAMP repository click to the Connect to server button. If you need to import some files to repository, use the Import to S-RAMP repository button in the context menu of your Package Explorer. To delete artifacts or importing artifacts to your project's workspace, use buttons in the context menu in Browser View.
