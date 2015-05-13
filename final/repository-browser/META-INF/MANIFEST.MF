@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: srampRepositoryBrowser
 Bundle-SymbolicName: srampRepositoryBrowser;singleton:=true
-Bundle-Version: 0.7.0.Final
+Bundle-Version: 0.1.0.Final
 Bundle-Activator: org.overlord.sramp.srampRepositoryBrowser.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.ui,
