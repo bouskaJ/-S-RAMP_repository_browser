@@ -92,4 +92,18 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<dependencies>
+		<dependency>
+			<artifactId>s-ramp-atom</artifactId>
+			<groupId>org.overlord.sramp</groupId>
+		</dependency>
+		<dependency>
+			<groupId>org.overlord.sramp</groupId>
+			<artifactId>s-ramp-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.overlord.sramp</groupId>
+			<artifactId>s-ramp-api</artifactId>
+		</dependency>
+	</dependencies>
 </project>
