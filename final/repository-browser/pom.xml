@@ -96,10 +96,34 @@
 		<dependency>
 			<artifactId>s-ramp-atom</artifactId>
 			<groupId>org.overlord.sramp</groupId>
+			<exclusions>
+			   <exclusion>
+			     <groupId>org.apache.commons</groupId>
+			     <artifactId>commons-compress</artifactId>
+			   </exclusion>
+			 </exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.overlord.sramp</groupId>
-			<artifactId>s-ramp-common</artifactId>
+		      <groupId>org.overlord.sramp</groupId>
+		      <artifactId>s-ramp-common</artifactId>
+		      <exclusions>
+		        <exclusion>
+		          <groupId>org.overlord</groupId>
+		          <artifactId>overlord-commons-services</artifactId>
+		        </exclusion>
+		        <exclusion>
+		          <groupId>org.overlord</groupId>
+		          <artifactId>overlord-commons-codec</artifactId>
+		        </exclusion>
+		        <exclusion>
+		          <groupId>org.reflections</groupId>
+		          <artifactId>reflections</artifactId>
+		        </exclusion>
+		        <exclusion>
+		          <groupId>com.google.guava</groupId>
+		          <artifactId>guava</artifactId>
+		        </exclusion>
+		      </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.overlord.sramp</groupId>

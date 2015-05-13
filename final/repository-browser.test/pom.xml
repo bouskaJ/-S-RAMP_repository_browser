@@ -109,8 +109,27 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.overlord.sramp</groupId>
-			<artifactId>s-ramp-common</artifactId>
-		</dependency>
+                      <groupId>org.overlord.sramp</groupId>
+                      <artifactId>s-ramp-common</artifactId>
+                      <exclusions>
+                        <exclusion>
+                          <groupId>org.overlord</groupId>
+                          <artifactId>overlord-commons-services</artifactId>
+                        </exclusion>
+                        <exclusion>
+                          <groupId>org.overlord</groupId>
+                          <artifactId>overlord-commons-codec</artifactId>
+                        </exclusion>
+                        <exclusion>
+                          <groupId>org.reflections</groupId>
+                          <artifactId>reflections</artifactId>
+                        </exclusion>
+                        <exclusion>
+                          <groupId>com.google.guava</groupId>
+                          <artifactId>guava</artifactId>
+                        </exclusion>
+                      </exclusions>
+                </dependency>
+
 	</dependencies>
 </project>
