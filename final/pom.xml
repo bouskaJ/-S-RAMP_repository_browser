@@ -17,8 +17,8 @@
 		<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
 	</properties>
 	<modules>
-		<module>/repository-browser</module>
-		<module>/repository-browser.test</module> 
+		<module>/srampRepositoryBrowser</module>
+		<module>/srampRepositoryBrowser.test</module> 
 	</modules>
 	<repositories>
 		<repository>
